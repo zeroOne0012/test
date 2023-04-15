@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 
 public class Main {
 
-    static String divNum(String num) { //¹®ÀÚ¿­ 3ÀÚ¸®¾¿ ','·Î ºĞÇÒ
+    static String divNum(String num) { //ë¬¸ìì—´ 3ìë¦¬ì”© ','ë¡œ ë¶„í• 
         String result = "";
         int size = num.length();
         for (int i = 0; i < size; i++) {
@@ -17,18 +17,18 @@ public class Main {
         return result;
     }
 
-    static int minimum(int i, int k) { //ÀÛÀº °ª ¹İÈ¯
+    static int minimum(int i, int k) { //ì‘ì€ ê°’ ë°˜í™˜
         if (i < k)
             return i;
         else
             return k;
     }
 
-    static BigInteger binomial_coefficient(int n, int k) { //ÀÌÇ×°è¼ö ¹İÈ¯
-        //ÆÄ½ºÄ® »ï°¢ÇüÀÇ ÇÑÁÙ¾¿ ±¸ÇÏ¿© cur¿¡ ÀúÀå
-        //curÀ» ±¸ÇÏ±â À§ÇÑ ÀÌÀü curÀº buf¿¡ ÀúÀå
-        BigInteger[] buf = { BigInteger.ONE }; //ÃÊ±â°ª: 0¹øÂ° Çà
-        BigInteger[] cur = { BigInteger.ONE }; //¿¡·¯ ¹æÁö ÃÊ±âÈ­
+    static BigInteger binomial_coefficient(int n, int k) { //ì´í•­ê³„ìˆ˜ ë°˜í™˜
+        //íŒŒìŠ¤ì¹¼ ì‚¼ê°í˜•ì˜ í•œì¤„ì”© êµ¬í•˜ì—¬ curì— ì €ì¥
+        //curì„ êµ¬í•˜ê¸° ìœ„í•œ ì´ì „ curì€ bufì— ì €ì¥
+        BigInteger[] buf = { BigInteger.ONE }; //ì´ˆê¸°ê°’: 0ë²ˆì§¸ í–‰
+        BigInteger[] cur = { BigInteger.ONE }; //ì—ëŸ¬ ë°©ì§€ ì´ˆê¸°í™”
         for (int i = 1; i <= n; i++) {
             int size = minimum(i + 1, k + 1);
             cur = new BigInteger[size];
@@ -40,7 +40,7 @@ public class Main {
                     cur[a] = buf[a - 1].add(buf[a]);
             }
 
-            buf = new BigInteger[size]; //buf¿¡ cur º¹»ç
+            buf = new BigInteger[size]; //bufì— cur ë³µì‚¬
             for (int a = 0; a < size; a++) {
                 buf[a] = cur[a];                
             }
@@ -50,29 +50,29 @@ public class Main {
     
     public static void main(String args[]) {
 
-        BigInteger result; //nCk °è»ê °á°ú
-        int n = 1, k = 1; //nCkÀÇ n, k
-        long start, end, time; //½Ã°£ ÃøÁ¤
-        boolean isSaved = false; //ÆÄÀÏ Ãâ·ÂÀÌ Á¤»óÀûÀ¸·Î µÇ¾úÀ¸¸é true
+        BigInteger result; //nCk ê³„ì‚° ê²°ê³¼
+        int n = 1, k = 1; //nCkì˜ n, k
+        long start, end, time; //ì‹œê°„ ì¸¡ì •
+        boolean isSaved = false; //íŒŒì¼ ì¶œë ¥ì´ ì •ìƒì ìœ¼ë¡œ ë˜ì—ˆìœ¼ë©´ true
         Scanner sc = new Scanner(System.in);
-        System.out.println("¾çÀÇ Á¤¼ö n k °ª ÀÔ·Â½Ã nCk °ªÀ» ±¸ÇØµå¸³´Ï´Ù. (À½¼ö ÀÔ·Â½Ã Á¾·á)");
+        System.out.println("ì–‘ì˜ ì •ìˆ˜ n k ê°’ ì…ë ¥ì‹œ nCk ê°’ì„ êµ¬í•´ë“œë¦½ë‹ˆë‹¤. (ìŒìˆ˜ ì…ë ¥ì‹œ ì¢…ë£Œ)");
 
         while (true) {
             n = sc.nextInt();
             k = sc.nextInt();
             if (n < 0 || k < 0)
                 break;
-            if (k > n) { //¿¹¿Ü Ã³¸®
-                System.out.println("k°¡ nº¸´Ù Å®´Ï´Ù. n k °ªÀ» ´Ù½Ã ÀÔ·ÂÇØÁÖ½Ê½Ã¿À.");
+            if (k > n) { //ì˜ˆì™¸ ì²˜ë¦¬
+                System.out.println("kê°€ në³´ë‹¤ í½ë‹ˆë‹¤. n k ê°’ì„ ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì‹­ì‹œì˜¤.");
                 continue;
             }
 
             start = System.nanoTime();
-            result = binomial_coefficient(n, k); //nCk °è»ê, ½Ã°£ ÃøÁ¤
+            result = binomial_coefficient(n, k); //nCk ê³„ì‚°, ì‹œê°„ ì¸¡ì •
             end = System.nanoTime();
             time = end - start;
 
-            try { // ¹ÙÀÌÆ® ´ÜÀ§·Î ÆÄÀÏ Ãâ·Â
+            try { // ë°”ì´íŠ¸ ë‹¨ìœ„ë¡œ íŒŒì¼ ì¶œë ¥
                 FileOutputStream fos = new FileOutputStream(n + "C" + k + ".txt"); 
                 byte[] byteFos = result.toByteArray();
                 fos.write(byteFos);
@@ -81,13 +81,13 @@ public class Main {
                 e.printStackTrace();
             }
 
-            try { // ¹ÙÀÌÆ® ´ÜÀ§·Î ÆÄÀÏ ÀÔ·Â: ÀúÀå ³»¿ë È®ÀÎ
+            try { // ë°”ì´íŠ¸ ë‹¨ìœ„ë¡œ íŒŒì¼ ì…ë ¥: ì €ì¥ ë‚´ìš© í™•ì¸
                 FileInputStream fis = new FileInputStream(n + "C" + k + ".txt"); 
                 byte[] byteFis = fis.readAllBytes();
                 fis.close();
                 BigInteger checkResult = new BigInteger(byteFis);
                 if (checkResult.compareTo(result) == 0)
-                    isSaved = true; // ´Ù½Ã ÀĞ¾î¿Â °ªÀÌ ÀúÀåÇÏ·Á´ø °ª°ú ÀÏÄ¡ÇÏ¸é true
+                    isSaved = true; // ë‹¤ì‹œ ì½ì–´ì˜¨ ê°’ì´ ì €ì¥í•˜ë ¤ë˜ ê°’ê³¼ ì¼ì¹˜í•˜ë©´ true
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -97,87 +97,9 @@ public class Main {
             System.out.println(n + "C" + k + " = " + divNum(result.toString()));
             //System.out.println("time: " + time + "ns");
             System.out.println("time: " + divNum(Long.toString(time)) + "ns");
-            System.out.println("ÆÄÀÏ Ãâ·Â: " + isSaved);
+            System.out.println("íŒŒì¼ ì¶œë ¥: " + isSaved);
             System.out.println("-----------------------------------");
         }
         sc.close();
     }
 }
-
-// import java.text.DecimalFormat
-//
-// static String divInt(String inputString) {
-// DecimalFormat decFormat = new DecimalFormat("###,###");
-// String num = decFormat.format(inputString);
-// return num;
-// }
-
-// BigInteger value = new BigInteger("1234567");
-// byte[] bytes = value.toByteArray();
-// value = new BigInteger(1, bytes);
-// System.out.println(value.toString());
-
-// BigInteger value = new BigInteger("1234567");
-// byte[] bytes = value.toByteArray();
-// for( int i = 0; i < bytes.length; i++)
-// System.out.println(bytes[i]);
-
-/// !!!!!
-// for(
-
-// int i = 0;i<m1;i+=chunkSize)
-// {
-// for (int j = 0; j < n2; j += chunkSize) {
-// for (int k = 0; k < n1; k += chunkSize) {
-// // ¹öÆÛ »ı¼º
-// int[][] buffer = new int[chunkSize][chunkSize];
-
-// // Á¶°¢ ´ÜÀ§·Î °ö¼À ¿¬»ê ¼öÇà
-// for (int x = i; x < Math.min(i + chunkSize, m1); x++) {
-// for (int y = j; y < Math.min(j + chunkSize, n2); y++) {
-// for (int z = k; z < Math.min(k + chunkSize, n1); z++) {
-// buffer[x - i][y - j] += a[x][z] * b[z][y];
-// }
-// }
-// }
-
-// // °á°ú Çà·Ä¿¡ Á¶°¢ º´ÇÕ
-// for (int x = i; x < Math.min(i + chunkSize, m1); x++) {
-// for (int y = j; y < Math.min(j + chunkSize, n2); y++) {
-// c[x][y] += buffer[x - i][y - j];
-// }
-// }
-// }
-// }
-// }
-
-/// !!!!!
-
-// BigInteger[][] arr = new BigInteger[n + 1][k + 1];
-// int bufferSize = 100;for(
-// int i = 0;i<=n;i+=bufferSize)
-// {
-// for (int j = 0; j <= minimum(i, k); j += bufferSize) {
-// BigInteger[][] buffer = new BigInteger[bufferSize][bufferSize];
-
-// for (int a = i; a <= minimum(i + bufferSize - 1, n); a++) {
-// for (int b = j; j <= minimum(i == j ? a - i : bufferSize, k); b++) {
-// if (j == 0 || j == i)
-// arr[a-i][b-j] = BigInteger.ONE;
-// else
-// arr[a-i][b-j] = ///////////arr[i - 1][j - 1].add(arr[i - 1][j]);
-// }
-// }
-
-// static BigInteger binomial_coefficient(int n, int k) { // ÀÌÇ×°è¼ö ¹İÈ¯
-// BigInteger[][] arr = new BigInteger[n + 1][k + 1];
-// for (int i = 0; i <= n; i++) {
-// for (int j = 0; j <= minimum(i, k); j++) {
-// if (j == 0 || j == i)
-// arr[i][j] = BigInteger.ONE;
-// else
-// arr[i][j] = arr[i - 1][j - 1].add(arr[i - 1][j]);
-// }
-// }
-// return arr[n][k];
-// }
